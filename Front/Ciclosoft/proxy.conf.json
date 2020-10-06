@@ -1,7 +1,0 @@
-{
-    "/servicios/*":{
-        "target": "http://localhost",
-        "source": false,
-        "changeOrigin": true 
-    }
-}
