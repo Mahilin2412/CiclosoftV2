@@ -1,0 +1,181 @@
+<form class="form-group" #CustomerForm="ngForm">
+    <div class="container">
+        <div class="row">
+            <div class="col-3"></div>
+            <div class="col-6">
+                <div class="form-row">
+                    <div class="form-group col-md-5">
+                        <label for="TipDocu">Tipo de Documento</label>
+                        <select class="form-control" id="TipDocu" name="TipDocu" [(ngModel)]="FKIdTypeDoc" required
+                            #TipDocu="ngModel">
+                            <option *ngFor="let tipoDocumento of tiposDocumento" value="{{tipoDocumento.IdTypeDoc}}">
+                                {{tipoDocumento.NameTypeDoc}}</option>
+                        </select>
+                        <div *ngIf="TipDocu.invalid && (TipDocu.dirty || TipDocu.touched)" class="alert alert-danger">
+
+                            <div *ngIf="TipDocu.errors.required">
+                                Por favor digitar Tipo de Documento.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-7">
+                        <label for="documento">Documento de Identidad</label>
+                        <input name="documento" type="text" class="form-control" id="documento" autocomplete="off"
+                            [(ngModel)]="NumIdentification" #documento="ngModel" required>
+
+                        <div *ngIf="documento.invalid && (documento.dirty || documento.touched)"
+                            class="alert alert-danger">
+
+                            <div *ngIf="documento.errors.required">
+                                Por favor digitar Documento.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="Fname">Primer Nombre</label>
+                        <input name="FirstName" type="text" class="form-control" id="Fname" autocomplete="off"
+                            [(ngModel)]="FirstNameCustomer" #Fname="ngModel" required>
+
+                        <div *ngIf="Fname.invalid && (Fname.dirty || Fname.touched)" class="alert alert-danger">
+
+                            <div *ngIf="Fname.errors.required">
+                                Por favor digitar Nombre.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="SName">Segundo Nombre</label>
+                        <input name="SecondName" type="text" class="form-control" id="SName" autocomplete="off"
+                            [(ngModel)]="SecondNameCustomer">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="LFname">Primer Apellido</label>
+                        <input name="FirstLastNameName" type="text" class="form-control" id="LFname" autocomplete="off"
+                            [(ngModel)]="LastNameCustomer" #LFname="ngModel" required>
+
+                        <div *ngIf="LFname.invalid && (LFname.dirty || LFname.touched)" class="alert alert-danger">
+
+                            <div *ngIf="LFname.errors.required">
+                                Por favor digitar Apellido.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="LSName">Segundo Apellido</label>
+                        <input name="SecondName" type="text" class="form-control" id="LSName" autocomplete="off"
+                            [(ngModel)]="SecondLastNameCustomer">
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="Con">Contraseña</label>
+                        <input type="password" name="pass" class="form-control" id="Con" [(ngModel)]="Password"
+                            #pass="ngModel" required minlength="4" >
+
+                        <div *ngIf="pass.invalid && (pass.dirty || pass.touched)" class="alert alert-danger">
+
+                            <div *ngIf="pass.errors.required">
+                                Por favor digitar Contraseña.
+                            </div>
+
+                            <div *ngIf="pass.invalid && (!pass.errors.required)">
+                                La contraseña debe ser mayor a 4 caracteres
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="ConF">Confirmar Contraseña</label>
+                        <input type="password" name="passC" class="form-control" id="ConF" [(ngModel)]="PasswordConf"
+                            #passC="ngModel" minlength="4" required>
+
+                        <div *ngIf="passC.invalid && (passC.dirty || passC.touched)" class="alert alert-danger">
+
+                            <div *ngIf="passC.errors.required">
+                                Por favor confirmar Contraseña.
+                            </div>
+                            <div *ngIf="passC.invalid && (!passC.errors.required)">
+                                La contraseña debe ser mayor a 4 caracteres
+                            </div>
+                        </div>
+                        <div *ngIf="passC.touched && Password !== PasswordConf" class="alert alert-danger">
+                            Las contraseñas no coinciden.
+                        </div>
+                    </div>
+
+
+                    <div class="form-group col-md-6">
+                        <label for="Mail">Correo</label>
+                        <input name="Mail" type="email" class="form-control" id="Mail" autocomplete="off"
+                            [(ngModel)]="Mail" required #mail="ngModel">
+                        <div *ngIf="mail.invalid && (mail.dirty || mail.touched)" class="alert alert-danger">
+
+                            <div *ngIf="mail.errors.required">
+                                Por favor digitar correo.
+                            </div>
+                            <div *ngIf="">
+                                Correo no valido.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="Nphone">Número telefonico</label>
+                        <input name="Nphone" type="text" class="form-control" id="Nphone" autocomplete="off"
+                            [(ngModel)]="NumberPhone" required #Nphone="ngModel">
+
+                        <div *ngIf="Nphone.invalid && (Nphone.dirty || Nphone.touched)" class="alert alert-danger">
+
+                            <div *ngIf="Nphone.errors.required">
+                                Digitar Número telefonico
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="Address">Dirección</label>
+                        <input name="Addres" type="text" class="form-control" id="Address" autocomplete="off" required
+                            [(ngModel)]="Address" #Addres="ngModel">
+
+                        <div *ngIf="Addres.invalid && (Addres.dirty || Addres.touched)" class="alert alert-danger">
+
+                            <div *ngIf="Addres.errors.required">
+                                Digitar Dirección
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="addresEntry">Dirección de entrega</label>
+                        <input name="addresEntry" type="text" class="form-control" id="addresEntry" autocomplete="off"
+                            [(ngModel)]="AddressEntry" required #addresEntry="ngModel">
+
+                        <div *ngIf="addresEntry.invalid && (addresEntry.dirty || addresEntry.touched)"
+                            class="alert alert-danger">
+
+                            <div *ngIf="addresEntry.errors.required">
+                                Digitar Dirección de entrega
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label for="Gender">Genero</label>
+                        <select class="form-control" id="Gender" name="Gender" [(ngModel)]="FKIdGender" required #Gender="ngModel">
+                            <option *ngFor="let Gender of Genders" value="{{Gender.IdGender}}">
+                                {{Gender.Name}}</option>
+                        </select>
+                        <div *ngIf="Gender.invalid && (Gender.dirty || Gender.touched)"
+                            class="alert alert-danger">
+
+                            <div *ngIf="Gender.errors.required">
+                                Digitar genero
+                            </div>
+                        </div>
+                    </div>
+                    <input name="submit" type="submit" class="btn btn-dark form-control" (click)="GuardarCliente()"
+                        value="registrar" [disabled]="CustomerForm.invalid">
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
