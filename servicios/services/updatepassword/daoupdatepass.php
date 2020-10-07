@@ -1,14 +1,14 @@
 <?php
-    include "../../conexion.php";
+    include "../../Conexion.php";
     include '../../config.php';
     
-    class updatepassdao extends Conexiondb{
+    class UpdatePassDao extends Conexiondb{
         private $conexion;
         public function __construct(){
             $this->conexion = Conexiondb::conectar();
         }
         
-    }
+        }
         public function UpdateProduct($datos){
             $datos = getParams($datos);
 
@@ -48,5 +48,8 @@
             $datos = getParams($datos);
             $sql = "DELETE PRODUCTS SET $datos WHERE IdProduct = :IdProduct;";
             $prepare = $this->conexion->prepare($sql);
-        }    
+        }
+    }
+
+    
 ?>
