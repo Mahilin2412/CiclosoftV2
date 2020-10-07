@@ -1,8 +1,9 @@
 <?php
-    include "../../Conexion.php";
-    include '../../config.php';
-    include '../../Data/classproduct.php';
-    function getParams($input){   
+    //include "../../Conexion.php";
+    include "servicios/Conexion.php";
+    include 'servicios/config.php';
+    include 'servicios/Data/classproduct.php';
+    function getParamsProducts($input){   
         $filterParams = [];
         foreach($input as $param => $value){
             //echo $param;
@@ -14,7 +15,7 @@
     }
 
      //Asociar todos los parametros a un sql
-    function bindAllValues($statement, $params){
+    function bindAllValuesProducts($statement, $params){
         foreach($params as $param => $value){
             if ($param !== "IdResponse" and $param !== "Response"){
                 $statement->bindValue(":$param", $value);
