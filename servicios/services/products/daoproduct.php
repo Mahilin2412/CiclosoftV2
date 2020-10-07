@@ -1,5 +1,5 @@
 <?php
-    include "../../Conexion.php";
+    include "../../conexion.php";
     include '../../config.php';
     include '../../Data/classproduct.php';
     function getParams($input){   
