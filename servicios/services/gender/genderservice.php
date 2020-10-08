@@ -1,5 +1,5 @@
 <?php
-    include 'DaoGender.php';
+    include 'daogender.php';
 
     if($_SERVER['REQUEST_METHOD'] == 'GET'){
         $model = new GenderDao();
