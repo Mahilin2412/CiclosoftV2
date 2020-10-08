@@ -1,5 +1,5 @@
 <?php
-    include "DaoCategoryProduct.php"; 
+    include "daocategoryproduct.php"; 
 
     if($_SERVER['REQUEST_METHOD'] == 'GET'){
 
