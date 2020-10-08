@@ -1,6 +1,6 @@
 <?php
-    include "daoproduct.php";
-       
+    include "servicios/services/products/daoproduct.php";
+
     if($_SERVER['REQUEST_METHOD'] == 'GET'){
         $model = new ProductDao();
 
