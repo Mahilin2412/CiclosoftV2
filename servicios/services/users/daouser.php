@@ -1,7 +1,7 @@
 <?php
-    include "../../Conexion.php";
-    include '../../config.php';
-    include '../../Data/classuser.php';
+    include "servicios/Conexion.php";
+    include 'servicios/config.php';
+    include 'servicios/Data/classuser.php';
     class UserDao extends Conexiondb{
         private $conexion;
         public function __construct(){

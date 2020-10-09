@@ -1,6 +1,6 @@
 <?php
-    include "../../Conexion.php";
-    include '../../config.php';
+    include "servicios/Conexion.php";
+    include 'servicios/config.php';
     class TypeDocDao extends Conexiondb{
         private $conexion;
         public function __construct(){

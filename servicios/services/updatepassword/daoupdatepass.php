@@ -1,6 +1,6 @@
 <?php
-    include "../../Conexion.php";
-    include '../../config.php';
+    include "servicios/Conexion.php";
+    include 'servicios/config.php';
     
     class UpdatePassDao extends Conexiondb{
         private $conexion;
@@ -8,7 +8,7 @@
             $this->conexion = Conexiondb::conectar();
         }
         
-        }
+        
         public function UpdateProduct($datos){
             $datos = getParams($datos);
 

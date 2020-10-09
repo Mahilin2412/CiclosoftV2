@@ -6,7 +6,7 @@
         public $SecondNameProvider;
         public $FirstLastNameProvider;
         public $SecondLastNameProvider;
-        public $NameComplete
+        public $NameComplete;
         public $StatusProvider;
         public $FKIdUser;
         public $Status;
@@ -14,9 +14,9 @@
         public $IdResponse;
         public $Response;
 
-        function  __construct($Id,fkidtype,$fnam,$snam,$flnam,$slnam,$namcom,$statprov,$user,$stat,$updateT){
+        function __construct($Id,$fkidtyp,$fnam,$snam,$flnam,$slnam,$namcom,$statprov,$user,$stat,$updateT){
             $this->NumIdentification = $Id;
-            $this->FKIdTypeDoc = $fkidtype;
+            $this->FKIdTypeDoc = $fkidtyp;
             $this->FirstNameProvider = $fnam;
             $this->SecondNameProvider = $snam;
             $this->FirstLastNameProvider = $flnam;
