@@ -8,11 +8,11 @@
         foreach($input as $param => $value){
             //echo $param;
             if ($Boolean){
-                if ($param !== "IdResponse" and $param !== "Response"  and $param !== "name"){
+                if ($param !== "UpdateTimestamp" and $param !== "IdResponse" and $param !== "Response"  and $param !== "name"){
                     $filterParams[] = "$param = :$param";
                 }
             }else{
-                if ($param !== "FKIdGender" and $param !== "IdResponse" and $param !== "Response" and $param !== "name"){
+                if ($param !== "UpdateTimestamp" and $param !== "FKIdGender" and $param !== "IdResponse" and $param !== "Response" and $param !== "name"){
                     $filterParams[] = "$param = :$param";    
                 }
                 
@@ -28,11 +28,11 @@
     function bindAllValuesCustomer($statement, $params,$Boolean){
         foreach($params as $param => $value){
             if($Boolean){
-                if ($param !== "IdResponse" and $param !== "Response" and $param !== "name"){
+                if ($param !== "UpdateTimestamp" and $param !== "IdResponse" and $param !== "Response" and $param !== "name"){
                     $statement->bindValue(":$param", $value);
                 }
             }else{
-            if ($param !== "FKIdGender" and $param !== "IdResponse" and $param !== "Response" and $param !== "name"){
+            if ($param !== "UpdateTimestamp" and $param !== "FKIdGender" and $param !== "IdResponse" and $param !== "Response" and $param !== "name"){
                 $statement->bindValue(":$param", $value);
             }
            }
@@ -100,7 +100,7 @@
             $datos['UpdateTimestamp']);
 
             $sql = $this->conexion->prepare("INSERT INTO Thirds(NumIdentification,FKIdTypeDoc,FirstNameThird,SecondNameThird,FirstLastNameThird,SecondLastNameThird,FKIdGender,FKIdUser,Status,UpdateTimestamp) 
-                                VALUES('$third->NumIdentification',$third->FKIdTypeDoc,'$third->FirstNameThird','$third->SecondNameThird','$third->LastNameThird','$third->SecondLastNameThird',$third->FKIdGender,$third->FKIdUser,'$third->Status','$third->UpdateTimestamp')");
+                                VALUES('$third->NumIdentification',$third->FKIdTypeDoc,'$third->FirstNameThird','$third->SecondNameThird','$third->LastNameThird','$third->SecondLastNameThird',$third->FKIdGender,$third->FKIdUser,'$third->Status',NOW())");
 
             $consulta = $this->conexion->prepare("SELECT *  FROM Thirds WHERE NumIdentification = :NumIdentification AND FKIdTypeDoc = :FKIdTypeDoc ;");
             $consulta->bindParam(':NumIdentification',$third->NumIdentification, PDO::PARAM_STR, 30);
@@ -132,7 +132,7 @@
             $datos['FirstLastNameCustomer'], $datos['SecondLastNameCustomer'], $datos['Password'], $datos['Mail'], $datos['Address'],
             $datos['AddressEntry'], $datos['NumberPhone'], $datos['FKIdTypeDoc'], $datos['FKIdUser'], $datos['Status'],
             $datos['UpdateTimestamp'],0,"");
-            $sentencia = $this->conexion->prepare("INSERT INTO Customers (NumIdentification, FirstNameCustomer, SecondNameCustomer,FirstLastNameCustomer, SecondLastNameCustomer, Password, MAIL, Address, AddressEntry, NumberPhone, FKIdTypeDoc,FKIdUser, Status, UpdateTimestamp) VALUES ('$obj->NumIdentification','$obj->FirstNameCustomer', '$obj->SecondNameCustomer','$obj->LastNameCustomer', '$obj->SecondLastNameCustomer', '$obj->Password', '$obj->Mail', '$obj->Address','$obj->AddressEntry', '$obj->NumberPhone', $obj->FKIdTypeDoc, $obj->FKIdUser, '$obj->Status', '$obj->UpdateTimeStamp')");
+            $sentencia = $this->conexion->prepare("INSERT INTO Customers (NumIdentification, FirstNameCustomer, SecondNameCustomer,FirstLastNameCustomer, SecondLastNameCustomer, Password, MAIL, Address, AddressEntry, NumberPhone, FKIdTypeDoc,FKIdUser, Status, UpdateTimestamp) VALUES ('$obj->NumIdentification','$obj->FirstNameCustomer', '$obj->SecondNameCustomer','$obj->LastNameCustomer', '$obj->SecondLastNameCustomer', '$obj->Password', '$obj->Mail', '$obj->Address','$obj->AddressEntry', '$obj->NumberPhone', $obj->FKIdTypeDoc, $obj->FKIdUser, '$obj->Status',NOW())");
             $consulta2 = $this->conexion->prepare("SELECT * FROM  Customers WHERE NumIdentification = :NumIdentification AND FKIdTypeDoc = :FKIdTypeDoc;");
             $consulta2->bindParam(':NumIdentification',$obj->NumIdentification,PDO::PARAM_STR,30);
             $consulta2->bindParam(':FKIdTypeDoc',$obj->FKIdTypeDoc,PDO::PARAM_INT);
@@ -192,7 +192,7 @@
                 echo json_encode($customer);
                 return;
             }
-            $sentencia = "UPDATE customers SET $campos WHERE NumIdentification = :NumIdentification and FKIdTypeDoc = :FKIdTypeDoc";
+            $sentencia = "UPDATE customers SET $campos, UpdateTimestamp = now() WHERE NumIdentification = :NumIdentification and FKIdTypeDoc = :FKIdTypeDoc";
             $prepare = $conn->prepare($sentencia);
             $prepare->bindParam(':NumIdentification',$numiden, PDO::PARAM_STR, 30);
             $prepare->bindParam(':FKIdTypeDoc',$typeDoc, PDO::PARAM_INT);
