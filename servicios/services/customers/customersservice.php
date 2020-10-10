@@ -1,5 +1,5 @@
 <?php
-    include_once("daocustomer.php");
+    include 'daocustomer.php';
     function getParams($input,$Boolean){   
         $filterParams = [];
         foreach($input as $param => $value){
