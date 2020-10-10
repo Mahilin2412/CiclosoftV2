@@ -24,7 +24,7 @@
         
             //Creamos instancia de la clase Customers para devolver respuesta al servicio.
             if ($sentencia){
-                $customer = new Customers($sentencia['NumIdentification'],$sentencia['FirstNameCustomer'],$sentencia['SecondNameCustomer'],$sentencia['LastNameCustomer'],$sentencia['SecondLastNameCustomer'],
+                $customer = new Customers($sentencia['NumIdentification'],$sentencia['FirstNameCustomer'],$sentencia['SecondNameCustomer'],$sentencia['FirstLastNameCustomer'],$sentencia['SecondLastNameCustomer'],
                                   $sentencia['Password'],$sentencia['MAIL'],$sentencia['Address'],$sentencia['AddressEntry'],$sentencia['NumberPhone'],$sentencia['FKIdTypeDoc'],$sentencia['FKIdUser'],
                                   $sentencia['Status'],$sentencia['UpdateTimestamp'],$sentencia['IdGender'],$sentencia['name']);
             
@@ -63,7 +63,7 @@
             $datos['LastNameCustomer'], $datos['SecondLastNameCustomer'], $datos['FKIdGender'], $datos['FKIdTypeDoc'], $datos['FKIdUser'], $datos['Status'],
             $datos['UpdateTimestamp']);
 
-            $sql = $this->conexion->prepare("INSERT INTO Thirds(NumIdentification,FKIdTypeDoc,FirstNameThird,SecondNameThird,LastNameThird,SecondLastNameThird,FKIdGender,FKIdUser,Status,UpdateTimestamp) 
+            $sql = $this->conexion->prepare("INSERT INTO Thirds(NumIdentification,FKIdTypeDoc,FirstNameThird,SecondNameThird,FirstLastNameThird,SecondLastNameThird,FKIdGender,FKIdUser,Status,UpdateTimestamp) 
                                 VALUES('$third->NumIdentification',$third->FKIdTypeDoc,'$third->FirstNameThird','$third->SecondNameThird','$third->LastNameThird','$third->SecondLastNameThird',$third->FKIdGender,$third->FKIdUser,'$third->Status','$third->UpdateTimestamp')");
 
             $consulta = $this->conexion->prepare("SELECT *  FROM Thirds WHERE NumIdentification = :NumIdentification AND FKIdTypeDoc = :FKIdTypeDoc ;");
