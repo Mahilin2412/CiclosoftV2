@@ -17,7 +17,7 @@
         public $UpdateTimeStamp;
 
 
-        function  __construct($Id,$fnam,$snam,$flnam,$slnam,$pmprod,$pord,$pinvoice,$pentry,$cuser,$pass,$user,$ruser,$suser,$stat,$updateT){
+        function  __construct($Id,$fnam,$snam,$flnam,$slnam,$pmprod,$pord,$pinvoice,$pentry,$cuser,$pass,$ruser,$suser,$stat,$updateT){
             $this->IdUser = $Id;
             $this->FirstName = $fnam;
             $this->SecondName = $snam;
