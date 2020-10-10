@@ -175,7 +175,7 @@
             /*
                 ACTUALIZAMOS INICIALMENTE LA TABLA DE Thirds
             */
-            $sql = "UPDATE Thirds SET $camposThirds WHERE NumIdentification = :NumIdentification and FKIdTypeDoc = :FKIdTypeDoc";
+            $sql = "UPDATE Thirds SET $camposThirds,UpdateTimestamp = now() WHERE NumIdentification = :NumIdentification and FKIdTypeDoc = :FKIdTypeDoc";
             $prepareSql = $this->conexion->prepare($sql);
             // ASIGNAMOS LOS PARAMETROS DE WHERE CON LA LLAVE PRIMARIA DE LA TABLA Y LOS DATOS ENVIADOS POR EL JSON
             $prepareSql->bindParam(':NumIdentification',$numiden, PDO::PARAM_STR, 30);
@@ -192,8 +192,8 @@
                 echo json_encode($customer);
                 return;
             }
-            $sentencia = "UPDATE customers SET $campos, UpdateTimestamp = now() WHERE NumIdentification = :NumIdentification and FKIdTypeDoc = :FKIdTypeDoc";
-            $prepare = $conn->prepare($sentencia);
+            $sentencia = "UPDATE Customers SET $campos, UpdateTimestamp = now() WHERE NumIdentification = :NumIdentification and FKIdTypeDoc = :FKIdTypeDoc";
+            $prepare = $this->conexion->prepare($sentencia);
             $prepare->bindParam(':NumIdentification',$numiden, PDO::PARAM_STR, 30);
             $prepare->bindParam(':FKIdTypeDoc',$typeDoc, PDO::PARAM_INT);
             $prepare = bindAllValues($prepare,$datos,false);
