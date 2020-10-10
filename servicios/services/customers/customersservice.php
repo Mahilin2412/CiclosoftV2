@@ -93,54 +93,12 @@
         $numiden = $datos['NumIdentification'];
         $typeDoc = $datos['FKIdTypeDoc'];
 
-        $camposThirds = getParams($datosThird,true);
-        $campos = getParams($datos,false);
-
-        /*
-            ACTUALIZAMOS INICIALMENTE LA TABLA DE Thirds
-        */
-        $sql = "UPDATE Thirds SET $camposThirds WHERE NumIdentification = :NumIdentification and FKIdTypeDoc = :FKIdTypeDoc";
-        $prepareSql = $conn->prepare($sql);
-        // ASIGNAMOS LOS PARAMETROS DE WHERE CON LA LLAVE PRIMARIA DE LA TABLA Y LOS DATOS ENVIADOS POR EL JSON
-        $prepareSql->bindParam(':NumIdentification',$numiden, PDO::PARAM_STR, 30);
-        $prepareSql->bindParam(':FKIdTypeDoc',$typeDoc, PDO::PARAM_INT);
-        $prepareSql = bindAllValues($prepareSql,$datosThird,true);  
-        try{
-            $prepareSql->execute();
-        }catch(PDOException $e){
-            $customer = new Customers($datos['NumIdentification'],$datos['FirstNameCustomer'],$datos['SecondNameCustomer'],$datos['LastNameCustomer'],$datos['SecondLastNameCustomer'],
-                                  $datos['Password'],$datos['Mail'],$datos['Address'],$datos['AddressEntry'],$datos['NumberPhone'],$datos['FKIdTypeDoc'],$datos['FKIdUser'],
-                                  $datos['Status'],$datos['UpdateTimestamp'],0,"");
-            $customer->IdResponse = 2;
-            $customer->Response = $e->getMessage();                      
-            echo json_encode($customer);
-            return;
-        }
-        $sentencia = "UPDATE customers SET $campos WHERE NumIdentification = :NumIdentification and FKIdTypeDoc = :FKIdTypeDoc";
-        $prepare = $conn->prepare($sentencia);
-        $prepare->bindParam(':NumIdentification',$numiden, PDO::PARAM_STR, 30);
-        $prepare->bindParam(':FKIdTypeDoc',$typeDoc, PDO::PARAM_INT);
-        $prepare = bindAllValues($prepare,$datos,false);
-        
-        try{
-            $prepare->execute();
-        }catch(PDOException $e){
-            $customer = new Customers($datos['NumIdentification'],$datos['FirstNameCustomer'],$datos['SecondNameCustomer'],$datos['LastNameCustomer'],$datos['SecondLastNameCustomer'],
-                                  $datos['Password'],$datos['Mail'],$datos['Address'],$datos['AddressEntry'],$datos['NumberPhone'],$datos['FKIdTypeDoc'],$datos['FKIdUser'],
-                                  $datos['Status'],$datos['UpdateTimestamp'],0,"");
-            $customer->IdResponse = 2;
-            $customer->Response = $e->getMessage();                      
-            echo json_encode($customer);
-            return;
-        }
-        $customer = new Customers($datos['NumIdentification'],$datos['FirstNameCustomer'],$datos['SecondNameCustomer'],$datos['LastNameCustomer'],$datos['SecondLastNameCustomer'],
-                                  $datos['Password'],$datos['Mail'],$datos['Address'],$datos['AddressEntry'],$datos['NumberPhone'],$datos['FKIdTypeDoc'],$datos['FKIdUser'],
-                                  $datos['Status'],$datos['UpdateTimestamp'],0,"");
-        $customer->IdResponse = 0;
-        $customer->Response = "Datos actualizados correctamente";
-        echo json_encode($customer);
-        exit();
+        $model = new CustomerDao();
+        $json = $model->UpdateCustomer($datosThird,$numiden,$typeDoc, $datos);
+        echo json_encode($json);
     }
+
+    
     if($_SERVER['REQUEST_METHOD'] == 'DELETE'){
     }
 ?>

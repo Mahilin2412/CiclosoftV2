@@ -3,6 +3,26 @@
     include '../../config.php';
     include '../../data/classcustomers.php';
     include '../../data/classthirds.php';
+    function getParamsCustomers($input){   
+        $filterParams = [];
+        foreach($input as $param => $value){
+            //echo $param;
+                if ($param !== "IdResponse" and $param !== "Response"){
+                    $filterParams[] = "$param = :$param";
+                }
+        }
+        return implode(", ", $filterParams);
+    }
+
+     //Asociar todos los parametros a un sql
+    function bindAllValuesCustomers($statement, $params){
+        foreach($params as $param => $value){
+            if ($param !== "IdResponse" and $param !== "Response"){
+                $statement->bindValue(":$param", $value);
+            }
+        }                
+        return $statement;        
+    }
     class CustomerDao extends Conexiondb{
         private $conexion;
         public function __construct(){
@@ -131,6 +151,54 @@
             $obj->Response = "Usuario creado correctamente";
             //echo json_encode($obj);
             return $obj;
+        }
+        public function UpdateCustomer($datosThird,$numiden,$typeDoc,$datos){
+            $datos = getParams($datos);
+
+            /*
+                ACTUALIZAMOS INICIALMENTE LA TABLA DE Thirds
+            */
+            $sql = "UPDATE Thirds SET $camposThirds WHERE NumIdentification = :NumIdentification and FKIdTypeDoc = :FKIdTypeDoc";
+            $prepareSql = $conn->prepare($sql);
+            // ASIGNAMOS LOS PARAMETROS DE WHERE CON LA LLAVE PRIMARIA DE LA TABLA Y LOS DATOS ENVIADOS POR EL JSON
+            $prepareSql->bindParam(':NumIdentification',$numiden, PDO::PARAM_STR, 30);
+            $prepareSql->bindParam(':FKIdTypeDoc',$typeDoc, PDO::PARAM_INT);
+            $prepareSql = bindAllValues($prepareSql,$datosThird,true);  
+            try{
+                $prepareSql->execute();
+            }catch(PDOException $e){
+                $customer = new Customers($datos['NumIdentification'],$datos['FirstNameCustomer'],$datos['SecondNameCustomer'],$datos['LastNameCustomer'],$datos['SecondLastNameCustomer'],
+                                      $datos['Password'],$datos['Mail'],$datos['Address'],$datos['AddressEntry'],$datos['NumberPhone'],$datos['FKIdTypeDoc'],$datos['FKIdUser'],
+                                      $datos['Status'],$datos['UpdateTimestamp'],0,"");
+                $customer->IdResponse = 2;
+                $customer->Response = $e->getMessage();                      
+                echo json_encode($customer);
+                return;
+            }
+            $sentencia = "UPDATE customers SET $campos WHERE NumIdentification = :NumIdentification and FKIdTypeDoc = :FKIdTypeDoc";
+            $prepare = $conn->prepare($sentencia);
+            $prepare->bindParam(':NumIdentification',$numiden, PDO::PARAM_STR, 30);
+            $prepare->bindParam(':FKIdTypeDoc',$typeDoc, PDO::PARAM_INT);
+            $prepare = bindAllValues($prepare,$datos,false);
+
+            try{
+                $prepare->execute();
+            }catch(PDOException $e){
+                $customer = new Customers($datos['NumIdentification'],$datos['FirstNameCustomer'],$datos['SecondNameCustomer'],$datos['LastNameCustomer'],$datos['SecondLastNameCustomer'],
+                                      $datos['Password'],$datos['Mail'],$datos['Address'],$datos['AddressEntry'],$datos['NumberPhone'],$datos['FKIdTypeDoc'],$datos['FKIdUser'],
+                                      $datos['Status'],$datos['UpdateTimestamp'],0,"");
+                $customer->IdResponse = 2;
+                $customer->Response = $e->getMessage();                      
+                echo json_encode($customer);
+                return;
+            }
+            $customer = new Customers($datos['NumIdentification'],$datos['FirstNameCustomer'],$datos['SecondNameCustomer'],$datos['LastNameCustomer'],$datos['SecondLastNameCustomer'],
+                                      $datos['Password'],$datos['Mail'],$datos['Address'],$datos['AddressEntry'],$datos['NumberPhone'],$datos['FKIdTypeDoc'],$datos['FKIdUser'],
+                                      $datos['Status'],$datos['UpdateTimestamp'],0,"");
+            $customer->IdResponse = 0;
+            $customer->Response = "Datos actualizados correctamente";
+            echo json_encode($customer);
+            exit();
         }
     }
 ?>
