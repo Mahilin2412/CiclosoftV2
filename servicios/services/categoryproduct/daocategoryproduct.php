@@ -1,7 +1,7 @@
 <?php
     include "../../Conexion.php";
     include '../../config.php';
-    include '../../Data/classcategoryproduct.php';
+    include '../../data/classcategoryproduct.php';
     function getParamsCategoryP($input){   
         $filterParams = [];
         foreach($input as $param => $value){
@@ -45,7 +45,7 @@
         public function postCategoryProduct($datos){
             $categoryp = new categoryproduct(0,$datos['ReferenceType'], $datos['NameCategory'], $datos['FKIdUser'], $datos['Status'], $datos['UpdateTimestamp']);
 
-            $autoincrement = $this->conexion->prepare("SELECT MAX(IdTypeProduct) + 1 as ID FROM categoryproduct");
+            $autoincrement = $this->conexion->prepare("SELECT MAX(IdTypeProduct) + 1 as ID FROM CategoryProduct");
             try{
                 $autoincrement->execute();
             }catch(PDOException $e){
@@ -58,7 +58,7 @@
 
             $newId = $autoincrement['ID'];
             $categoryp->IdTypeProduct = $newId;
-            $sql = $this->conexion->prepare("INSERT INTO categoryproduct(IdTypeProduct,ReferenceType,NameCategory,FKIdUser,Status,UpdateTimestamp) 
+            $sql = $this->conexion->prepare("INSERT INTO CategoryProduct(IdTypeProduct,ReferenceType,NameCategory,FKIdUser,Status,UpdateTimestamp) 
                                 VALUES($categoryp->IdTypeProduct,'$categoryp->ReferenceType','$categoryp->NameCategory',$categoryp->FKIdUser,
                                 '$categoryp->Status','$categoryp->UpdateTimestamp')");
 
@@ -81,7 +81,7 @@
             /*
                 ACTUALIZAMOS TABLA CATEGORIA PRODUCTO
             */
-            $sql = "UPDATE CATEGORYPRODUCT SET $datos WHERE IdTypeProduct = :IdTypeProduct;";
+            $sql = "UPDATE CategoryProduct SET $datos WHERE IdTypeProduct = :IdTypeProduct;";
             $prepare = $this->conexion->prepare($sql);
             // ASIGNAMOS LOS PARAMETROS DE WHERE CON LA LLAVE PRIMARIA DE LA TABLA Y LOS DATOS ENVIADOS POR EL JSON
             

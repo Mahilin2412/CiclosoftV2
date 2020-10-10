@@ -1,5 +1,5 @@
 <?php
-    include_once("DaoUser.php");
+    include_once("daouser.php");
     function getParams($input,$Boolean){   
         $filterParams = [];
         foreach($input as $param => $value){

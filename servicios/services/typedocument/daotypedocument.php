@@ -1,6 +1,6 @@
 <?php
-    include "servicios/Conexion.php";
-    include 'servicios/config.php';
+    include "../../Conexion.php";
+    include '../../config.php';
     class TypeDocDao extends Conexiondb{
         private $conexion;
         public function __construct(){
@@ -8,7 +8,7 @@
         }
 
         public function getTypeDoc(){
-            $sentencia = $this->conexion->prepare("SELECT * FROM typedocument;");
+            $sentencia = $this->conexion->prepare("SELECT * FROM TypeDocument;");
             try{
                 $sentencia->execute();
             }catch(PDOException $e){

@@ -89,7 +89,7 @@
             /*
                 ACTUALIZAMOS TABLA PRODUCTO
             */
-            $sql = "UPDATE PRODUCTS SET $datos WHERE IdProduct = :IdProduct;";
+            $sql = "UPDATE Products SET $datos WHERE IdProduct = :IdProduct;";
             $prepare = $this->conexion->prepare($sql);
             // ASIGNAMOS LOS PARAMETROS DE WHERE CON LA LLAVE PRIMARIA DE LA TABLA Y LOS DATOS ENVIADOS POR EL JSON
             
@@ -116,12 +116,6 @@
             $product->Response = "Datos actualizados correctamente";
 
             return $product;
-        }
-        
-        public function DeleteProduct($datos){
-            $datos = getParams($datos);
-            $sql = "DELETE PRODUCTS SET $datos WHERE IdProduct = :IdProduct;";
-            $prepare = $this->conexion->prepare($sql);
         }
     }
 

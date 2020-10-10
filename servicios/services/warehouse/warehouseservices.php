@@ -1,5 +1,5 @@
 <?php
-    include "DaoWarehouse.php"; 
+    include "daowarehouse.php"; 
 
     if($_SERVER['REQUEST_METHOD'] == 'GET'){
 

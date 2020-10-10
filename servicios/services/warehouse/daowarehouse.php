@@ -1,7 +1,7 @@
 <?php
-    include "servicios/Conexion.php";
-    include 'servicios/config.php';
-    include 'servicios/Data/classwarehouse.php';
+    include "../../Conexion.php";
+    include '../../config.php';
+    include '../Data/classwarehouse.php';
     function getParams($input){   
         $filterParams = [];
         foreach($input as $param => $value){
@@ -29,7 +29,7 @@
         }
 
         public function getWarehouse(){
-            $sentencia = $this->conexion->prepare("SELECT * FROM warehouse;");
+            $sentencia = $this->conexion->prepare("SELECT * FROM WareHouse;");
             try{
                 $sentencia->execute();
             }catch(PDOException $e){
@@ -46,7 +46,7 @@
         public function postWarehouse($datos){
             $warehouse = new Warehouse(0,$datos['ReferenceWareHouse'], $datos['NameWareHouse'], $datos['FKIdUserMan'], $datos['StatusWareHouse'], $datos['FKIdUser'], $datos['Status'], $datos['UpdateTimestamp']);
 
-            $autoincrement = $this->conexion->prepare("SELECT MAX(IdWareHouse) + 1 as ID FROM warehouse");
+            $autoincrement = $this->conexion->prepare("SELECT MAX(IdWareHouse) + 1 as ID FROM WareHouse");
             try{
                 $autoincrement->execute();
             }catch(PDOException $e){
@@ -59,7 +59,7 @@
 
             $newId = $autoincrement['ID'];
             $warehouse->IdWareHouse = $newId;
-            $sql = $this->conexion->prepare("INSERT INTO warehouse(IdWareHouse,ReferenceWareHouse,NameWareHouse,FKIdUserMan,StatusWareHouse,FKIdUser,Status,UpdateTimestamp) 
+            $sql = $this->conexion->prepare("INSERT INTO WareHouse(IdWareHouse,ReferenceWareHouse,NameWareHouse,FKIdUserMan,StatusWareHouse,FKIdUser,Status,UpdateTimestamp) 
                                 VALUES($warehouse->IdWareHouse,'$warehouse->ReferenceWareHouse','$warehouse->NameWareHouse',$warehouse->FKIdUserMan,$warehouse->StatusWareHouse,
                                 $warehouse->FKIdUser,'$warehouse->Status','$warehouse->UpdateTimestamp')");
 
@@ -82,7 +82,7 @@
             /*
                 ACTUALIZAMOS TABLA BODEGA
             */
-            $sql = "UPDATE WAREHOUSE SET $datos WHERE IdWareHouse = :IdWareHouse;";
+            $sql = "UPDATE WareHouse SET $datos WHERE IdWareHouse = :IdWareHouse;";
             $prepare = $this->conexion->prepare($sql);
             // ASIGNAMOS LOS PARAMETROS DE WHERE CON LA LLAVE PRIMARIA DE LA TABLA Y LOS DATOS ENVIADOS POR EL JSON
             

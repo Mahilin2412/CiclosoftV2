@@ -1,8 +1,8 @@
 <?php
-    include "servicios/Conexion.php";
-    include 'servicios/config.php';
-    include 'servicios/Data/classcustomers.php';
-    include 'servicios/Data/classthirds.php';
+    include "../../Conexion.php";
+    include '../../config.php';
+    include '../Data/classcustomers.php';
+    include '../Data/classthirds.php';
     class CustomerDao extends Conexiondb{
         private $conexion;
         public function __construct(){
@@ -10,9 +10,9 @@
         }
 
         public function getCustomerLogin($Iden,$type,$pass){
-            $sentencia = $this->conexion->prepare("SELECT a.*,c.IdGender,c.name FROM customers a
-            inner join thirds b on a.NumIdentification = b.NumIdentification and a.FKIdTypeDoc = b.FKIdTypeDoc
-            inner join gender c on c.IdGender = b.FKIdGender
+            $sentencia = $this->conexion->prepare("SELECT a.*,c.IdGender,c.name FROM Customers a
+            inner join Thirds b on a.NumIdentification = b.NumIdentification and a.FKIdTypeDoc = b.FKIdTypeDoc
+            inner join Gender c on c.IdGender = b.FKIdGender
             WHERE a.NumIdentification = :Numiden AND a.FKIdTypeDoc = :fkidtype;");
 
             $sentencia->bindParam(':Numiden',$Iden, PDO::PARAM_STR, 30);
@@ -96,8 +96,8 @@
             $datos['LastNameCustomer'], $datos['SecondLastNameCustomer'], $datos['Password'], $datos['Mail'], $datos['Address'],
             $datos['AddressEntry'], $datos['NumberPhone'], $datos['FKIdTypeDoc'], $datos['FKIdUser'], $datos['Status'],
             $datos['UpdateTimestamp'],0,"");
-            $sentencia = $this->conexion->prepare("INSERT INTO CUSTOMERS (NumIdentification, FirstNameCustomer, SecondNameCustomer,LastNameCustomer, SecondLastNameCustomer, Password, MAIL, Address, AddressEntry, NumberPhone, FKIdTypeDoc,FKIdUser, Status, UpdateTimestamp) VALUES ('$obj->NumIdentification','$obj->FirstNameCustomer', '$obj->SecondNameCustomer','$obj->LastNameCustomer', '$obj->SecondLastNameCustomer', '$obj->Password', '$obj->Mail', '$obj->Address','$obj->AddressEntry', '$obj->NumberPhone', $obj->FKIdTypeDoc, $obj->FKIdUser, '$obj->Status', '$obj->UpdateTimeStamp')");
-            $consulta2 = $this->conexion->prepare("SELECT * FROM  customers WHERE NumIdentification = :NumIdentification AND FKIdTypeDoc = :FKIdTypeDoc;");
+            $sentencia = $this->conexion->prepare("INSERT INTO Customers (NumIdentification, FirstNameCustomer, SecondNameCustomer,LastNameCustomer, SecondLastNameCustomer, Password, MAIL, Address, AddressEntry, NumberPhone, FKIdTypeDoc,FKIdUser, Status, UpdateTimestamp) VALUES ('$obj->NumIdentification','$obj->FirstNameCustomer', '$obj->SecondNameCustomer','$obj->LastNameCustomer', '$obj->SecondLastNameCustomer', '$obj->Password', '$obj->Mail', '$obj->Address','$obj->AddressEntry', '$obj->NumberPhone', $obj->FKIdTypeDoc, $obj->FKIdUser, '$obj->Status', '$obj->UpdateTimeStamp')");
+            $consulta2 = $this->conexion->prepare("SELECT * FROM  Customers WHERE NumIdentification = :NumIdentification AND FKIdTypeDoc = :FKIdTypeDoc;");
             $consulta2->bindParam(':NumIdentification',$obj->NumIdentification,PDO::PARAM_STR,30);
             $consulta2->bindParam(':FKIdTypeDoc',$obj->FKIdTypeDoc,PDO::PARAM_INT);
             try{

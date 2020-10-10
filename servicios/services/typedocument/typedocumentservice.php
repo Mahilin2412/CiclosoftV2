@@ -1,5 +1,5 @@
 <?php
-    include "DaoTypeDocument.php"; 
+    include "daotypedocument.php"; 
 
 
     if($_SERVER['REQUEST_METHOD'] == 'GET'){

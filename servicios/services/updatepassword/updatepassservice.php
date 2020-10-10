@@ -1,5 +1,5 @@
 <?php
-    include "DaoUpdatePass.php";
+    include "daoupdatepass.php";
 
     if($_SERVER['REQUEST_METHOD'] == 'PUT'){
         //Optenemos el tipo de contenido del llamado del servicio

@@ -1,7 +1,7 @@
 <?php
-    include "servicios/Conexion.php";
-    include 'servicios/config.php';
-    include 'servicios/Data/classuser.php';
+    include "../../Conexion.php";
+    include '../../config.php';
+    include '../Data/classuser.php';
     class UserDao extends Conexiondb{
         private $conexion;
         public function __construct(){
@@ -9,7 +9,7 @@
         }
 
         public function getUserLogin($cduser,$pass){
-            $sentencia = $this->conexion->prepare("SELECT * FROM users a
+            $sentencia = $this->conexion->prepare("SELECT * FROM Users a
             WHERE a.CodeUser = :coduser ;");
 
             $sentencia->bindParam(':coduser',$cduser, PDO::PARAM_STR, 30);
@@ -50,11 +50,11 @@
             $obj = new User($datos['IdUser'], $datos['FirstName'], $datos['SecondName'], $datos['FirstLastName'], $datos['SecondLastName'], 
             $datos['PerModProduct'], $datos['PerOrder'], $datos['PerInvoice'], $datos['PerEntry'], $datos['CodeUser'], $datos['Password'], 
             $datos['RolUser'], $datos['StatusUser'], $datos['Status'], $datos['UpdateTimestamp'],0,"");
-            $sentencia = $this->conexion->prepare("INSERT INTO users (IdUser, FirstName, SecondName,FirstLastName, SecondLastName, PerModProduct, PerOrder, 
+            $sentencia = $this->conexion->prepare("INSERT INTO Users (IdUser, FirstName, SecondName,FirstLastName, SecondLastName, PerModProduct, PerOrder, 
             PerInvoice, PerEntry, CodeUser, Password, RolUser, StatusUser, Status, UpdateTimestamp) VALUES ('$obj->IdUser','$obj->FirstName', '$obj->SecondName',
             '$obj->FirstLastName', '$obj->SecondLastName', '$obj->PerModProduct', '$obj->PerOrder', '$obj->PerInvoice','$obj->PerEntry', '$obj->CodeUser', 
             $obj->Password, $obj->RolUser, '$obj->StatusUser', '$obj->Status', '$obj->UpdateTimeStamp')");
-            $consulta2 = $this->conexion->prepare("SELECT * FROM  users WHERE CodeUser = :CodeUser AND Password = :Password;");
+            $consulta2 = $this->conexion->prepare("SELECT * FROM  Users WHERE CodeUser = :CodeUser AND Password = :Password;");
             $consulta2->bindParam(':CodeUser',$obj->NumIdentification,PDO::PARAM_STR,30);
             $consulta2->bindParam(':Password',$obj->FKIdTypeDoc,PDO::PARAM_INT);
             try{
