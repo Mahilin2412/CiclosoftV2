@@ -3,25 +3,41 @@
     include '../../config.php';
     include '../../data/classcustomers.php';
     include '../../data/classthirds.php';
-    function getParamsCustomers($input){   
+    function getParamsCustomer($input,$Boolean){   
         $filterParams = [];
         foreach($input as $param => $value){
             //echo $param;
-                if ($param !== "IdResponse" and $param !== "Response"){
+            if ($Boolean){
+                if ($param !== "IdResponse" and $param !== "Response"  and $param !== "name"){
                     $filterParams[] = "$param = :$param";
                 }
+            }else{
+                if ($param !== "FKIdGender" and $param !== "IdResponse" and $param !== "Response" and $param !== "name"){
+                    $filterParams[] = "$param = :$param";    
+                }
+                
+            }
         }
-        return implode(", ", $filterParams);
+            
+            
+       return implode(", ", $filterParams);
     }
-
+        
+   
      //Asociar todos los parametros a un sql
-    function bindAllValuesCustomers($statement, $params){
+    function bindAllValuesCustomer($statement, $params,$Boolean){
         foreach($params as $param => $value){
-            if ($param !== "IdResponse" and $param !== "Response"){
+            if($Boolean){
+                if ($param !== "IdResponse" and $param !== "Response" and $param !== "name"){
+                    $statement->bindValue(":$param", $value);
+                }
+            }else{
+            if ($param !== "FKIdGender" and $param !== "IdResponse" and $param !== "Response" and $param !== "name"){
                 $statement->bindValue(":$param", $value);
             }
-        }                
-        return $statement;        
+           }
+        }
+        return $statement;
     }
     class CustomerDao extends Conexiondb{
         private $conexion;
@@ -113,7 +129,7 @@
             }
         
             $obj = new Customers($datos['NumIdentification'], $datos['FirstNameCustomer'], $datos['SecondNameCustomer'], 
-            $datos['LastNameCustomer'], $datos['SecondLastNameCustomer'], $datos['Password'], $datos['Mail'], $datos['Address'],
+            $datos['FirstLastNameCustomer'], $datos['SecondLastNameCustomer'], $datos['Password'], $datos['Mail'], $datos['Address'],
             $datos['AddressEntry'], $datos['NumberPhone'], $datos['FKIdTypeDoc'], $datos['FKIdUser'], $datos['Status'],
             $datos['UpdateTimestamp'],0,"");
             $sentencia = $this->conexion->prepare("INSERT INTO Customers (NumIdentification, FirstNameCustomer, SecondNameCustomer,FirstLastNameCustomer, SecondLastNameCustomer, Password, MAIL, Address, AddressEntry, NumberPhone, FKIdTypeDoc,FKIdUser, Status, UpdateTimestamp) VALUES ('$obj->NumIdentification','$obj->FirstNameCustomer', '$obj->SecondNameCustomer','$obj->LastNameCustomer', '$obj->SecondLastNameCustomer', '$obj->Password', '$obj->Mail', '$obj->Address','$obj->AddressEntry', '$obj->NumberPhone', $obj->FKIdTypeDoc, $obj->FKIdUser, '$obj->Status', '$obj->UpdateTimeStamp')");
@@ -153,8 +169,8 @@
             return $obj;
         }
         public function UpdateCustomer($datosThird,$numiden,$typeDoc,$datos){
-            $campos = getParams($datos);
-            $camposThirds = getParams($datosThird);
+            $campos = getParamsCustomer($datos);
+            $camposThirds = getParamsCustomer($datosThird);
 
             /*
                 ACTUALIZAMOS INICIALMENTE LA TABLA DE Thirds
