@@ -1,7 +1,7 @@
 <?php
     include "../../Conexion.php";
     include '../../config.php';
-    include '../Data/classwarehouse.php';
+    include '../../Data/classwarehouse.php';
     function getParams($input){   
         $filterParams = [];
         foreach($input as $param => $value){

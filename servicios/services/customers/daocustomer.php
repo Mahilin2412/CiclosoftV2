@@ -1,8 +1,8 @@
 <?php
     include "../../Conexion.php";
     include '../../config.php';
-    include '../Data/classcustomers.php';
-    include '../Data/classthirds.php';
+    include '../../Data/classcustomers.php';
+    include '../../Data/classthirds.php';
     class CustomerDao extends Conexiondb{
         private $conexion;
         public function __construct(){
