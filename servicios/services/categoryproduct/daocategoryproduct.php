@@ -1,7 +1,7 @@
 <?php
     include "../../Conexion.php";
     include '../../config.php';
-    include '../../Data/classcategoryproduct.php';
+    include '../../data/classcategoryproduct.php';
     function getParamsCategoryP($input){   
         $filterParams = [];
         foreach($input as $param => $value){

@@ -1,6 +1,6 @@
 <?php
-    include "servicios/Conexion.php";
-    include 'servicios/config.php';
+    include "../../Conexion.php";
+    include '../../config.php';
     
     class UpdatePassDao extends Conexiondb{
         private $conexion;
