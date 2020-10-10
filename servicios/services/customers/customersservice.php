@@ -83,7 +83,7 @@
             'FKIdTypeDoc' => $datos['FKIdTypeDoc'],
             'FirstNameThird' => $datos['FirstNameCustomer'],
             'SecondNameThird' => $datos['SecondNameCustomer'],
-            'LastNameThird' => $datos['LastNameCustomer'],
+            'FirstLastNameThird' => $datos['FirstLastNameCustomer'],
             'SecondLastNameThird' => $datos['SecondLastNameCustomer'],
             'FKIdGender' => $datos['FKIdGender'],
             'FKIdUser' => $datos['FKIdUser'],

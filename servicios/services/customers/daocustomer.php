@@ -153,7 +153,8 @@
             return $obj;
         }
         public function UpdateCustomer($datosThird,$numiden,$typeDoc,$datos){
-            $datos = getParams($datos);
+            $campos = getParams($datos);
+            $camposThirds = getParams($datosThird);
 
             /*
                 ACTUALIZAMOS INICIALMENTE LA TABLA DE Thirds
@@ -163,11 +164,11 @@
             // ASIGNAMOS LOS PARAMETROS DE WHERE CON LA LLAVE PRIMARIA DE LA TABLA Y LOS DATOS ENVIADOS POR EL JSON
             $prepareSql->bindParam(':NumIdentification',$numiden, PDO::PARAM_STR, 30);
             $prepareSql->bindParam(':FKIdTypeDoc',$typeDoc, PDO::PARAM_INT);
-            $prepareSql = bindAllValues($prepareSql,$datosThird,true);  
+            $prepareSql = bindAllValues($prepareSql,$datosThird);  
             try{
                 $prepareSql->execute();
             }catch(PDOException $e){
-                $customer = new Customers($datos['NumIdentification'],$datos['FirstNameCustomer'],$datos['SecondNameCustomer'],$datos['LastNameCustomer'],$datos['SecondLastNameCustomer'],
+                $customer = new Customers($datos['NumIdentification'],$datos['FirstNameCustomer'],$datos['SecondNameCustomer'],$datos['FirstLastNameCustomer'],$datos['SecondLastNameCustomer'],
                                       $datos['Password'],$datos['Mail'],$datos['Address'],$datos['AddressEntry'],$datos['NumberPhone'],$datos['FKIdTypeDoc'],$datos['FKIdUser'],
                                       $datos['Status'],$datos['UpdateTimestamp'],0,"");
                 $customer->IdResponse = 2;
@@ -179,12 +180,12 @@
             $prepare = $conn->prepare($sentencia);
             $prepare->bindParam(':NumIdentification',$numiden, PDO::PARAM_STR, 30);
             $prepare->bindParam(':FKIdTypeDoc',$typeDoc, PDO::PARAM_INT);
-            $prepare = bindAllValues($prepare,$datos,false);
+            $prepare = bindAllValues($prepare,$datos);
 
             try{
                 $prepare->execute();
             }catch(PDOException $e){
-                $customer = new Customers($datos['NumIdentification'],$datos['FirstNameCustomer'],$datos['SecondNameCustomer'],$datos['LastNameCustomer'],$datos['SecondLastNameCustomer'],
+                $customer = new Customers($datos['NumIdentification'],$datos['FirstNameCustomer'],$datos['SecondNameCustomer'],$datos['FirstLastNameCustomer'],$datos['SecondLastNameCustomer'],
                                       $datos['Password'],$datos['Mail'],$datos['Address'],$datos['AddressEntry'],$datos['NumberPhone'],$datos['FKIdTypeDoc'],$datos['FKIdUser'],
                                       $datos['Status'],$datos['UpdateTimestamp'],0,"");
                 $customer->IdResponse = 2;
@@ -192,7 +193,7 @@
                 echo json_encode($customer);
                 return;
             }
-            $customer = new Customers($datos['NumIdentification'],$datos['FirstNameCustomer'],$datos['SecondNameCustomer'],$datos['LastNameCustomer'],$datos['SecondLastNameCustomer'],
+            $customer = new Customers($datos['NumIdentification'],$datos['FirstNameCustomer'],$datos['SecondNameCustomer'],$datos['FirstLastNameCustomer'],$datos['SecondLastNameCustomer'],
                                       $datos['Password'],$datos['Mail'],$datos['Address'],$datos['AddressEntry'],$datos['NumberPhone'],$datos['FKIdTypeDoc'],$datos['FKIdUser'],
                                       $datos['Status'],$datos['UpdateTimestamp'],0,"");
             $customer->IdResponse = 0;
