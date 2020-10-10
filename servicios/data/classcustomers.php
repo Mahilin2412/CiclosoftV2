@@ -3,7 +3,7 @@
         public $NumIdentification;
         public $FirstNameCustomer;
         public $SecondNameCustomer;
-        public $LastNameCustomer;
+        public $FirstLastNameCustomer;
         public $SecondLastNameCustomer;
         public $Password;
         public $Mail;
@@ -23,7 +23,7 @@
             $this->NumIdentification = $Id;
             $this->FirstNameCustomer = $fnam;
             $this->SecondNameCustomer = $snam;
-            $this->LastNameCustomer = $flnam;
+            $this->FirstLastNameCustomer = $flnam;
             $this->SecondLastNameCustomer = $slnam;
             $this->Password = $pass;
             $this->Mail = $mail;

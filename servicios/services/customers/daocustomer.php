@@ -80,7 +80,7 @@
         public function PostCustomer($datos){
             $ExisteTercero = false;
             $third = new Thirds($datos['NumIdentification'], $datos['FirstNameCustomer'], $datos['SecondNameCustomer'], 
-            $datos['LastNameCustomer'], $datos['SecondLastNameCustomer'], $datos['FKIdGender'], $datos['FKIdTypeDoc'], $datos['FKIdUser'], $datos['Status'],
+            $datos['FirstLastNameCustomer'], $datos['SecondLastNameCustomer'], $datos['FKIdGender'], $datos['FKIdTypeDoc'], $datos['FKIdUser'], $datos['Status'],
             $datos['UpdateTimestamp']);
 
             $sql = $this->conexion->prepare("INSERT INTO Thirds(NumIdentification,FKIdTypeDoc,FirstNameThird,SecondNameThird,FirstLastNameThird,SecondLastNameThird,FKIdGender,FKIdUser,Status,UpdateTimestamp) 
