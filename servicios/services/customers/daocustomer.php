@@ -169,18 +169,18 @@
             return $obj;
         }
         public function UpdateCustomer($datosThird,$numiden,$typeDoc,$datos){
-            $campos = getParamsCustomer($datos);
-            $camposThirds = getParamsCustomer($datosThird);
+            $campos = getParamsCustomer($datos,false);
+            $camposThirds = getParamsCustomer($datosThird, true);
 
             /*
                 ACTUALIZAMOS INICIALMENTE LA TABLA DE Thirds
             */
             $sql = "UPDATE Thirds SET $camposThirds WHERE NumIdentification = :NumIdentification and FKIdTypeDoc = :FKIdTypeDoc";
-            $prepareSql = $conn->prepare($sql);
+            $prepareSql = $this->conexion->prepare($sql);
             // ASIGNAMOS LOS PARAMETROS DE WHERE CON LA LLAVE PRIMARIA DE LA TABLA Y LOS DATOS ENVIADOS POR EL JSON
             $prepareSql->bindParam(':NumIdentification',$numiden, PDO::PARAM_STR, 30);
             $prepareSql->bindParam(':FKIdTypeDoc',$typeDoc, PDO::PARAM_INT);
-            $prepareSql = bindAllValues($prepareSql,$datosThird);  
+            $prepareSql = bindAllValues($prepareSql,$datosThird,true);  
             try{
                 $prepareSql->execute();
             }catch(PDOException $e){
@@ -196,7 +196,7 @@
             $prepare = $conn->prepare($sentencia);
             $prepare->bindParam(':NumIdentification',$numiden, PDO::PARAM_STR, 30);
             $prepare->bindParam(':FKIdTypeDoc',$typeDoc, PDO::PARAM_INT);
-            $prepare = bindAllValues($prepare,$datos);
+            $prepare = bindAllValues($prepare,$datos,false);
 
             try{
                 $prepare->execute();
