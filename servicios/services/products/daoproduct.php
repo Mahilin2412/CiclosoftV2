@@ -1,7 +1,7 @@
 <?php
     include "../../Conexion.php";
     include '../../config.php';
-    include '../../Data/classproduct.php';
+    include '../../data/classproduct.php';
     function getParamsProducts($input){   
         $filterParams = [];
         foreach($input as $param => $value){
